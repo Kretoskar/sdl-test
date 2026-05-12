@@ -1,0 +1,12 @@
+
+.idea/
+
+.vs/
+
+*.vcxproj
+
+*.sln
+
+bin/
+
+bin-int/
