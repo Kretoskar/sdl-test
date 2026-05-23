@@ -24,6 +24,41 @@ project "HCCore"
 
     includedirs 
 	{
+        "src/HCCore/include",
+    }
+
+    filter "system:windows"
+        systemversion "latest"
+
+    filter "configurations:Debug"
+        symbols "On"
+        runtime "Debug"
+
+    filter "configurations:Release"
+        optimize "On"
+        runtime "Release"
+		
+project "HCEngine"
+    kind "StaticLib"
+    language "C++"
+    cppdialect "C++20"
+
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+    files 
+	{
+        "src/HCEngine/src/**.h",
+        "src/HCEngine/src/**.hpp",
+        "src/HCEngine/src/**.cpp",
+		"src/HCEngine/include/HCEngine/**.h",
+        "src/HCEngine/include/HCEngine/**.hpp",
+    }
+
+    includedirs 
+	{
+		"src/HCCore/include/",
+		"src/HCEngine/include",
         "vendor/SDL3/include",
         "vendor/SDL3_image/include"
     }
@@ -33,12 +68,8 @@ project "HCCore"
         "vendor/SDL3/lib/x64",
         "vendor/SDL3_image/lib/x64"
     }
-
-    links 
-	{
-        "SDL3",
-        "SDL3_image",
-    }
+	
+	dependson { "FFCore" }
 
     filter "system:windows"
         systemversion "latest"
@@ -73,6 +104,7 @@ project "HCGame"
         "vendor/SDL3/include",
         "vendor/SDL3_image/include",
 		"src/HCCore/include",
+		"src/HCEngine/include",
     }
 
     libdirs 
@@ -85,7 +117,11 @@ project "HCGame"
 	{
         "SDL3",
         "SDL3_image",
+		"HCCore",
+		"HCEngine"
     }
+	
+	dependson { "FFCore", "FFEngine" }
 
     postbuildcommands 
 	{

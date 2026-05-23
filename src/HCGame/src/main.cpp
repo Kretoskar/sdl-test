@@ -1,6 +1,7 @@
 ﻿#include <SDL3/SDL.h>
 #include "SDL3_image/SDL_image.h"
 #include "HCCore/Core/Types.h"
+#include "HCEngine/Test.h"
 
 #include <iostream>
 
@@ -14,6 +15,9 @@ void Cleanup(SDLState& state);
 
 int main()
 {
+    HCE::A a;
+    a.B();
+    
     SDLState state;
     
     if (!SDL_Init(SDL_INIT_VIDEO))
