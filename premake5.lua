@@ -122,10 +122,16 @@ project "HCGame"
     }
 	
 	dependson { "FFCore", "FFEngine" }
+	
+	defines 
+	{
+		'ASSETS_DIR="%{wks.location}/assets"'
+	}
 
     postbuildcommands 
 	{
-         '{COPYFILE} "%{wks.location}/vendor/SDL3/lib/x64/SDL3.dll" "%{cfg.targetdir}"'
+         '{COPYFILE} "%{wks.location}/vendor/SDL3/lib/x64/SDL3.dll" "%{cfg.targetdir}"',
+         '{COPYFILE} "%{wks.location}/vendor/SDL3_image/lib/x64/SDL3_image.dll" "%{cfg.targetdir}"',
     }
 
     filter "system:windows"
